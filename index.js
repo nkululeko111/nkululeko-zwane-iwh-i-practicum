@@ -9,7 +9,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 const PRIVATE_APP_ACCESS = process.env.PRIVATE_APP_ACCESS;
-const OBJECT = "nkulu_practicum.mythical_creature"; 
+const OBJECT = "2-195458406";
 
 // ROUTE 1 — Homepage (List objects)
 app.get("/", async (req, res) => {

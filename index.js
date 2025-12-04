@@ -13,7 +13,7 @@ const OBJECT = "2-195458406";
 
 // ROUTE 1 — Homepage (List objects)
 app.get("/", async (req, res) => {
-    const url = `https://api.hubapi.com/crm/v3/objects/${OBJECT}`;
+    const url = `https://api.hubapi.com/crm/v3/objects/${OBJECT}?archived=false&properties=name,power,origin`;
 
     try {
         const resp = await axios.get(url, {
@@ -32,6 +32,7 @@ app.get("/", async (req, res) => {
         res.send("Error loading records.");
     }
 });
+
 
 // ROUTE 2 — Render Form
 app.get("/update-cobj", (req, res) => {

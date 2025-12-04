@@ -1,24 +1,23 @@
 doctype html
-html
+html(lang="en")
   head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
     title= title
-    link(rel="stylesheet", href="/css/style.css")
-
+    link(rel="stylesheet" href="/css/style.css")
   body
-    a(href="/") Return to the homepage
-    h1 Add a New Mythical Creature
-
-    form(action="/update-cobj" method="POST")
-      label(for="name") Name:
-      input(type="text", name="name", required)
-      br
-
-      label(for="power") Power:
-      input(type="text", name="power")
-      br
-
-      label(for="origin") Origin:
-      input(type="text", name="origin")
-      br
-
-      button(type="submit") Submit
+    header
+      h1 Add a New Mythical Creature
+      a.button(href="/") Return to Homepage
+    main
+      form(action="/update-cobj" method="POST")
+        div.form-group
+          label(for="name") Name:
+          input(type="text" name="name" placeholder="Enter creature name" required)
+        div.form-group
+          label(for="power") Power:
+          input(type="text" name="power" placeholder="Enter creature power")
+        div.form-group
+          label(for="origin") Origin:
+          input(type="text" name="origin" placeholder="Enter creature origin")
+        button(type="submit") Submit

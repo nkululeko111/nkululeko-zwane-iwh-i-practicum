@@ -7,17 +7,18 @@ html(lang="en")
     link(rel="stylesheet" href="/css/style.css")
   body
     header
-      h1 Add a New Mythical Creature
+      h1 Add or Update a Mythical Creature
       a.button(href="/") Return to Homepage
     main
       form(action="/update-cobj" method="POST")
+        input(type="hidden" name="id" value=(typeof id !== 'undefined' ? id : ''))
         div.form-group
           label(for="name") Name:
-          input(type="text" name="name" placeholder="Enter creature name" required)
+          input(type="text" name="name" placeholder="Enter creature name" required value=(typeof name !== 'undefined' ? name : ''))
         div.form-group
           label(for="power") Power:
-          input(type="text" name="power" placeholder="Enter creature power")
+          input(type="text" name="power" placeholder="Enter creature power" value=(typeof power !== 'undefined' ? power : ''))
         div.form-group
           label(for="origin") Origin:
-          input(type="text" name="origin" placeholder="Enter creature origin")
+          input(type="text" name="origin" placeholder="Enter creature origin" value=(typeof origin !== 'undefined' ? origin : ''))
         button(type="submit") Submit

@@ -17,11 +17,14 @@ html(lang="en")
               th Name
               th Power
               th Origin
+              th Actions
           tbody
             each creature in creatures
               tr
                 td= creature.properties.name
                 td= creature.properties.power
                 td= creature.properties.origin
+                td
+                  a.edit-button(href=`/update-cobj?name=${encodeURIComponent(creature.properties.name)}&power=${encodeURIComponent(creature.properties.power)}&origin=${encodeURIComponent(creature.properties.origin)}`) Edit
       else
         p No creatures found. Add some using the form above!

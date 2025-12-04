@@ -34,38 +34,57 @@ app.get("/", async (req, res) => {
 });
 
 
-// ROUTE 2 — Render Form
-app.get("/update-cobj", (req, res) => {
+// GET /update-cobj — Add query param for edit
+app.get("/update-cobj", async (req, res) => {
+    const creatureId = req.query.id;
+    let creatureData = {};
+
+    if (creatureId) {
+        // Fetch existing data from HubSpot
+        const url = `https://api.hubapi.com/crm/v3/objects/${OBJECT}/${creatureId}`;
+        try {
+            const resp = await axios.get(url, {
+                headers: { Authorization: `Bearer ${PRIVATE_APP_ACCESS}` }
+            });
+            creatureData = resp.data.properties;
+        } catch (err) {
+            console.error(err.response?.data || err);
+        }
+    }
+
     res.render("updates", {
-        title: "Update Custom Object Form | Integrating With HubSpot I Practicum"
+        title: "Update Custom Object Form | Integrating With HubSpot I Practicum",
+        creature: creatureData,
+        id: creatureId
     });
 });
 
+
 // ROUTE 3 — Create new record
 app.post("/update-cobj", async (req, res) => {
-    const url = `https://api.hubapi.com/crm/v3/objects/${OBJECT}`;
+    const { id, name, power, origin } = req.body;
+    const url = id 
+        ? `https://api.hubapi.com/crm/v3/objects/${OBJECT}/${id}`  
+        : `https://api.hubapi.com/crm/v3/objects/${OBJECT}`;      
 
     const body = {
-        properties: {
-            name: req.body.name,
-            power: req.body.power,
-            origin: req.body.origin
-        }
+        properties: { name, power, origin }
     };
 
     try {
-        await axios.post(url, body, {
-            headers: {
-                Authorization: `Bearer ${PRIVATE_APP_ACCESS}`,
-                "Content-Type": "application/json"
-            }
-        });
-
+        if(id){
+            await axios.patch(url, body, {
+                headers: { Authorization: `Bearer ${PRIVATE_APP_ACCESS}`, "Content-Type": "application/json" }
+            });
+        } else {
+            await axios.post(url, body, {
+                headers: { Authorization: `Bearer ${PRIVATE_APP_ACCESS}`, "Content-Type": "application/json" }
+            });
+        }
         res.redirect("/");
-
     } catch (err) {
         console.error(err.response?.data || err);
-        res.send("Error creating record.");
+        res.send("Error creating/updating record.");
     }
 });
 

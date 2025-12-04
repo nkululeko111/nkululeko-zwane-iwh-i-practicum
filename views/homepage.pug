@@ -1,0 +1,22 @@
+doctype html
+html
+  head
+    title= title
+    link(rel="stylesheet", href="/css/style.css")
+
+  body
+    h1 Mythical Creatures
+    a(href="/update-cobj") Add to this table
+
+    table
+      thead
+        tr
+          th Name
+          th Power
+          th Origin
+      tbody
+        each item in creatures
+          tr
+            td= item.properties.name
+            td= item.properties.power
+            td= item.properties.origin

@@ -1,0 +1,24 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title= title
+    link(rel="stylesheet" href="/css/style.css")
+  body
+    header
+      h1 Add or Update a Mythical Creature
+      a.button(href="/") Return to Homepage
+    main
+      form(action="/update-cobj" method="POST")
+        input(type="hidden" name="id" value=(typeof id !== 'undefined' ? id : ''))
+        div.form-group
+          label(for="name") Name:
+          input(type="text" name="name" placeholder="Enter creature name" required value=(typeof name !== 'undefined' ? name : ''))
+        div.form-group
+          label(for="power") Power:
+          input(type="text" name="power" placeholder="Enter creature power" value=(typeof power !== 'undefined' ? power : ''))
+        div.form-group
+          label(for="origin") Origin:
+          input(type="text" name="origin" placeholder="Enter creature origin" value=(typeof origin !== 'undefined' ? origin : ''))
+        button(type="submit") Submit

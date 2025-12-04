@@ -1,0 +1,30 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title= title
+    link(rel="stylesheet" href="/css/style.css")
+  body
+    header
+      h1 Mythical Creatures List
+      a.button(href="/update-cobj") Add a New Creature
+    main
+      if creatures.length
+        table
+          thead
+            tr
+              th Name
+              th Power
+              th Origin
+              th Actions
+          tbody
+            each creature in creatures
+              tr
+                td= creature.properties.name
+                td= creature.properties.power
+                td= creature.properties.origin
+                td
+                  a.edit-button(href=`/update-cobj?name=${encodeURIComponent(creature.properties.name)}&power=${encodeURIComponent(creature.properties.power)}&origin=${encodeURIComponent(creature.properties.origin)}`) Edit
+      else
+        p No creatures found. Add some using the form above!
